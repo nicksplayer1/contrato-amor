@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🧾 Contrato de Amor (View-only)</title>
+
+  <style>
+    :root{
+      --bg1:#0b1024;
+      --bg2:#2b145c;
+      --card: rgba(255,255,255,.06);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --accent: #ffd36a;
+      --good: #6ef0b6;
+      --bad: #ff6b6b;
+      --shadow: 0 18px 60px rgba(0,0,0,.40);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 900px at 20% 20%, rgba(255,211,106,.16), transparent 60%),
+        radial-gradient(900px 700px at 80% 10%, rgba(125,68,255,.22), transparent 55%),
+        radial-gradient(1100px 900px at 60% 80%, rgba(0,255,209,.12), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+      padding: 20px 14px 40px;
+    }
+
+    .wrap{max-width:980px;margin:0 auto}
+    .top{
+      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      padding:12px 14px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .logo{
+      width:40px;height:40px;border-radius:14px;
+      display:grid;place-items:center;
+      background: radial-gradient(circle at 30% 30%, rgba(255,211,106,.9), rgba(255,211,106,.2));
+      color:#1a102f;
+      font-size:20px;
+      font-weight:900;
+    }
+    .brand h1{margin:0;font-size:16px;letter-spacing:.2px}
+    .brand p{margin:2px 0 0;color:var(--muted);font-size:12.5px}
+
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+    button,.chip{
+      appearance:none;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:700;
+      letter-spacing:.1px;
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    button:hover{transform:translateY(-1px)}
+    button:active{transform:translateY(0)}
+    .chip{cursor:default; padding:8px 10px; font-weight:800; color: rgba(255,255,255,.85);}
+    .chip b{color:var(--accent)}
+
+    .card{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .paper{padding:16px}
+    .doc{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      padding:18px 18px 14px;
+      background:
+        radial-gradient(1000px 550px at 20% 0%, rgba(255,211,106,.10), transparent 60%),
+        radial-gradient(900px 650px at 100% 30%, rgba(125,68,255,.16), transparent 55%),
+        rgba(255,255,255,.04);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .stamp{
+      position:absolute;
+      top:14px; right:14px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: rgba(0,0,0,.18);
+      font-size:12px;
+      color: rgba(255,255,255,.88);
+      text-align:right;
+    }
+    .stamp .small{display:block;color:var(--muted);font-weight:700;margin-top:3px}
+    .title{
+      margin:0;
+      font-size:30px;
+      line-height:1.12;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size:14px;
+      max-width:72ch;
+    }
+    .hl{color:var(--accent);font-weight:900}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 14px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color:rgba(255,255,255,.86);
+      font-size:12.5px;
+    }
+
+    .section{
+      border-top:1px solid rgba(255,255,255,.10);
+      margin-top:14px;
+      padding-top:14px;
+    }
+    .section h3{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color:rgba(255,255,255,.86);
+      display:flex; gap:8px; align-items:center;
+    }
+    .clause{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:10px 12px;
+      margin:8px 0;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .clause .n{
+      min-width:28px; height:28px; border-radius:10px;
+      display:grid; place-items:center;
+      background: rgba(255,211,106,.16);
+      border:1px solid rgba(255,211,106,.22);
+      color: rgba(255,211,106,.92);
+      font-weight:900;
+      font-size:12px;
+    }
+    .clause .t{flex:1;color:rgba(255,255,255,.90); font-size:14px; line-height:1.35}
+
+    .signBox{
+      display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap;
+    }
+    .sig{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:10px;
+    }
+    canvas{
+      display:block;
+      width:320px; height:140px;
+      border-radius:12px;
+      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.10);
+      touch-action:none;
+    }
+    .sigBtns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .mini{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.35}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px}
+    .videoBox{
+      width:360px; max-width:100%;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:10px;
+    }
+    video{
+      width:100%;
+      border-radius:12px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .statusPill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      font-size:12.5px;
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--bad); box-shadow:0 0 18px rgba(255,107,107,.35)}
+    .ok{color: rgba(110,240,182,.95); font-weight:900}
+    .err{color: rgba(255,107,107,.95); font-weight:900}
+
+    .foot{
+      display:flex; gap:12px; align-items:flex-end; justify-content:space-between; flex-wrap:wrap;
+      margin-top:14px;
+      border-top:1px solid rgba(255,255,255,.10);
+      padding-top:14px;
+    }
+
+    /* Overlay: “Anexar vídeo” */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.70);
+      display:none;
+      place-items:center;
+      padding:14px;
+      z-index:9999;
+    }
+    .overlay.show{display:grid;}
+    .modal{
+      width:min(540px, 100%);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(20,20,30,.78);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+    .modalH{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalH .t{font-size:13px; color: rgba(255,255,255,.90); font-weight:900}
+    .modalB{padding:14px}
+    input[type="file"]{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color:var(--text);
+      padding:10px 12px;
+      outline:none;
+    }
+
+    @media (max-width: 520px){
+      .title{font-size:26px}
+      canvas{width:100%;}
+      .videoBox{width:100%}
+    }
+
+    @media print{
+      body{background:#fff; color:#000; padding:0}
+      .top{display:none}
+      .card{box-shadow:none; border:none; background:#fff}
+      .paper{padding:0}
+      .doc{box-shadow:none; border:1px solid #ddd; background:#fff}
+      .pill,.sig,.videoBox,.stamp{border-color:#ddd; background:#fff}
+      .hl{color:#b98400}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <div class="top">
+      <div class="brand">
+        <div class="logo">🧾</div>
+        <div>
+          <h1>Contrato de Amor (Somente Preview)</h1>
+          <p>Sem painel/aba. Você edita direto no código (variáveis no JS).</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span class="chip">Protocolo: <b id="protoChip">—</b></span>
+        <button id="btnAttach" type="button">📎 Anexar vídeo</button>
+        <button id="btnPrint" type="button">🖨️ Imprimir</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="paper">
+        <div class="doc" id="doc">
+          <div class="stamp">
+            <div><b id="proto">PROTO —</b></div>
+            <span class="small" id="stampDT">—</span>
+          </div>
+
+          <h1 class="title"><span class="hl">🧾</span> <span id="docTitle">Contrato</span></h1>
+          <p class="subtitle" id="docSubtitle"></p>
+
+          <div class="meta">
+            <span class="pill">👤 A: <b id="mA">—</b></span>
+            <span class="pill">👤 B: <b id="mB">—</b></span>
+            <span class="pill">🗂️ Tipo: <b id="mKind">—</b></span>
+            <span class="pill">🎭 Tom: <b id="mTone">—</b></span>
+          </div>
+
+          <p style="margin:0;color:rgba(255,255,255,.88);font-size:15px;line-height:1.45" id="pIntro"></p>
+
+          <div class="section">
+            <h3>✨ Declaração</h3>
+            <div style="font-size:22px;font-weight:900;line-height:1.2;margin-top:2px">
+              <span id="pHead"></span>
+            </div>
+            <div class="mini">Essa frase é o “gancho” perfeito pra anúncio: curta, forte, compartilhável.</div>
+          </div>
+
+          <div class="section">
+            <h3>📌 Cláusulas</h3>
+            <div id="clauseList"></div>
+            <div class="mini" id="clauseHint"></div>
+          </div>
+
+          <div class="section">
+            <h3>📎 Anexo em vídeo</h3>
+            <div class="videoBox">
+              <video id="video" controls playsinline preload="metadata"></video>
+              <div class="mini" id="videoNote">Sem vídeo anexado.</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>✍️ Assinaturas</h3>
+
+            <div class="signBox">
+              <div class="sig">
+                <div style="display:flex;gap:10px;align-items:center;justify-content:space-between">
+                  <div style="font-weight:900">Assinatura do(a) <span class="hl" id="sigNameA">—</span></div>
+                  <div class="mini" id="sigOk" style="margin:0">Não assinado</div>
+                </div>
+
+                <canvas id="pad" width="640" height="280"></canvas>
+
+                <div class="sigBtns">
+                  <button id="btnClear" type="button">🧽 Limpar</button>
+                  <button id="btnSaveSig" type="button">💾 Salvar</button>
+                  <button id="btnUndo" type="button">↩️ Desfazer</button>
+                </div>
+                <div class="mini">No celular, assine com o dedo. No PC, com mouse.</div>
+              </div>
+
+              <div class="sig" style="min-width:260px;max-width:360px">
+                <div style="font-weight:900;margin-bottom:8px">✅ Status do acordo</div>
+
+                <div class="statusPill" style="margin-bottom:8px">
+                  <span class="dot" id="statusDot"></span>
+                  <span id="statusTxt" class="err">Pendente</span>
+                </div>
+
+                <div class="mini" id="statusHelp">Assine e clique em <b>Assinar &amp; Finalizar</b>.</div>
+
+                <div style="height:1px;background:rgba(255,255,255,.10);margin:12px 0"></div>
+
+                <button id="btnFinalize" type="button" style="width:100%;justify-content:center">🧾 Assinar &amp; Finalizar</button>
+                <div class="mini">Ao finalizar, fica “travado” (modo produto). Para vídeos, fica ótimo.</div>
+
+                <div style="height:1px;background:rgba(255,255,255,.10);margin:12px 0"></div>
+
+                <button id="btnUnlock" type="button" style="width:100%;justify-content:center;opacity:.9">🔓 Reabrir edição</button>
+                <div class="mini">Se quiser ajustar, reabra. (Em anúncio, você pode esconder esse botão.)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="foot">
+            <div class="mini">
+              <b>Carimbo:</b> <span id="footDT">—</span><br/>
+              <b>Protocolo:</b> <span class="kbd" id="footProto">—</span>
+            </div>
+            <div class="mini" style="text-align:right">
+              “Se for pra ser, que seja com <span class="hl">termos claros</span> e <span class="hl">carinho infinito</span>.” 💛
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal anexar vídeo local -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal">
+      <div class="modalH">
+        <div class="t">📎 Anexar vídeo (local)</div>
+        <button id="btnCloseModal" type="button">✖️ Fechar</button>
+      </div>
+      <div class="modalB">
+        <input id="videoFile" type="file" accept="video/*" />
+        <div class="mini">Isso não faz upload. É só pra você testar/gravar vídeos.</div>
+        <div class="mini">Ou, se preferir, edite <b>CONFIG.videoUrl</b> no código para apontar pra um arquivo no repo.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =====================================================
+    // EDITE AQUI (sem editor/aba). Isso é o seu “painel”.
+    // =====================================================
+    const CONFIG = {
+      me: "Eu",
+      you: "Você",
+      kind: "namoro",      // namoro | noivado | casamento | volta
+      tone: "romantico",   // romantico | engracado | fofo | serio
+
+      // Se deixar vazio, usa “agora” como carimbo.
+      // Formatos: date "YYYY-MM-DD" e time "HH:MM"
+      date: "",
+      time: "",
+
+      // Se vazio, usa "Contrato de <tipo>"
+      title: "",
+
+      // Se vazio, usa padrão baseado em kind/tone
+      intro: "",
+      headline: "",
+
+      // Claúsulas (texto livre). Se vazio, mostra aviso.
+      clauses: [
+        "As partes concordam em manter um mínimo de 1 (um) carinho diário. 💛",
+        "Em caso de briga: abraço obrigatório por 20 segundos (mínimo). 🤝",
+        "Está autorizado o uso de apelidos e memes internos (sem abuso). 😂"
+      ],
+
+      // Vídeo: pode ser "video.mp4" (arquivo no repo) OU vazio pra anexar via botão
+      videoUrl: "",
+
+      // Se você quiser forçar um protocolo, coloque aqui. Senão, ele gera um.
+      protocol: ""
+    };
+    // =====================================================
+
+    const $ = (id)=>document.getElementById(id);
+
+    // Nodes
+    const pDocTitle   = $("docTitle");
+    const pSubtitle   = $("docSubtitle");
+    const pMA         = $("mA");
+    const pMB         = $("mB");
+    const pKind       = $("mKind");
+    const pTone       = $("mTone");
+    const pIntro      = $("pIntro");
+    const pHead       = $("pHead");
+    const pClauseList = $("clauseList");
+    const pClauseHint = $("clauseHint");
+    const pVideo      = $("video");
+    const pVideoNote  = $("videoNote");
+    const pProto      = $("proto");
+    const pProtoChip  = $("protoChip");
+    const pStampDT    = $("stampDT");
+    const pFootDT     = $("footDT");
+    const pFootProto  = $("footProto");
+    const pSigNameA   = $("sigNameA");
+    const pSigOk      = $("sigOk");
+
+    const statusDot   = $("statusDot");
+    const statusTxt   = $("statusTxt");
+    const statusHelp  = $("statusHelp");
+
+    // Buttons
+    const btnAttach     = $("btnAttach");
+    const btnPrint      = $("btnPrint");
+    const btnFinalize   = $("btnFinalize");
+    const btnUnlock     = $("btnUnlock");
+
+    // Modal
+    const overlay       = $("overlay");
+    const btnCloseModal = $("btnCloseModal");
+    const videoFile     = $("videoFile");
+
+    // Signature pad
+    const canvas = $("pad");
+    const ctx = canvas.getContext("2d");
+    const btnClear = $("btnClear");
+    const btnSaveSig = $("btnSaveSig");
+    const btnUndo = $("btnUndo");
+
+    const state = {
+      signatureDataUrl: "",
+      finalized: false,
+      videoUrl: CONFIG.videoUrl || "",
+      videoName: CONFIG.videoUrl ? String(CONFIG.videoUrl).split("/").pop() : ""
+    };
+
+    function nowParts(){
+      const d = new Date();
+      const pad2 = (n)=> String(n).padStart(2,"0");
+      const dt = `${pad2(d.getDate())}/${pad2(d.getMonth()+1)}/${d.getFullYear()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+      return { dt, d };
+    }
+
+    function hashTiny(str){
+      let h = 2166136261;
+      for (let i=0;i<str.length;i++){
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return (h >>> 0).toString(36).toUpperCase().slice(0,8);
+    }
+
+    function buildProtocol(){
+      const { d } = nowParts();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      const seed = `${CONFIG.me}|${CONFIG.you}|${CONFIG.kind}|${d.toISOString()}`;
+      const h = hashTiny(seed);
+      return `PROTO-${y}-${m}${day}-${h}`;
+    }
+
+    function kindLabel(v){
+      return ({ namoro:"Namoro", noivado:"Noivado", casamento:"Casamento", volta:"Volta" }[v] || "Namoro");
+    }
+
+    function toneLabel(v){
+      return ({ romantico:"Romântico", engracado:"Engraçado", fofo:"Fofo", serio:"Sério (quase)" }[v] || "Romântico");
+    }
+
+    function defaultTexts(){
+      const headlineMap = {
+        namoro:  `Eu, <span class='hl'>${CONFIG.you}</span>, aceito namorar com você?`,
+        noivado: `Eu, <span class='hl'>${CONFIG.you}</span>, aceito noivar com você?`,
+        casamento:`Eu, <span class='hl'>${CONFIG.you}</span>, aceito casar com você?`,
+        volta:   `Eu, <span class='hl'>${CONFIG.you}</span>, aceito tentar de novo com você?`
+      };
+      const introBase = {
+        romantico: `Pelo presente instrumento, <b>${CONFIG.me}</b> e <b>${CONFIG.you}</b> declaram, com o coração tranquilo e os olhos brilhando, que desejam firmar um acordo de carinho, parceria e presença.`,
+        engracado: `Isto aqui é um contrato sério (só que não). <b>${CONFIG.me}</b> e <b>${CONFIG.you}</b> concordam em se escolher e, quando der ruim, conversar antes de sumir do mapa.`,
+        fofo:      `Entre risadas e “bom dia” com sono, <b>${CONFIG.me}</b> e <b>${CONFIG.you}</b> decidem oficializar esse amor em forma de contrato — porque fofura também pode ter cláusulas.`,
+        serio:     `Por livre e espontânea vontade (e uma dose alta de sentimento), <b>${CONFIG.me}</b> e <b>${CONFIG.you}</b> firmam este acordo, comprometendo-se com respeito, cuidado e verdade.`
+      };
+      return {
+        headline: headlineMap[CONFIG.kind] || headlineMap.namoro,
+        intro: introBase[CONFIG.tone] || introBase.romantico,
+        subtitle: CONFIG.tone === "serio"
+          ? "Um acordo com cara de documento e alma de amor. 💛"
+          : "Um acordo sério o suficiente pra valer — e leve o bastante pra sorrir. 💛"
+      };
+    }
+
+    function prettyDT(){
+      const { dt } = nowParts();
+      if(CONFIG.date){
+        const d = CONFIG.date.split("-").reverse().join("/");
+        return `${d} ${CONFIG.time || ""}`.trim();
+      }
+      return dt;
+    }
+
+    function setStatus(finalized){
+      if(finalized){
+        statusDot.style.background = "var(--good)";
+        statusDot.style.boxShadow = "0 0 18px rgba(110,240,182,.5)";
+        statusTxt.textContent = "Aceito / Assinado";
+        statusTxt.className = "ok";
+        statusHelp.innerHTML = "Contrato finalizado. (Modo produto) ✅";
+      }else{
+        statusDot.style.background = "var(--bad)";
+        statusDot.style.boxShadow = "0 0 18px rgba(255,107,107,.35)";
+        statusTxt.textContent = "Pendente";
+        statusTxt.className = "err";
+        statusHelp.innerHTML = "Assine e clique em <b>Assinar &amp; Finalizar</b>.";
+      }
+    }
+
+    function lockUI(locked){
+      const ids = ["btnClear","btnSaveSig","btnUndo","btnAttach"];
+      ids.forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        el.disabled = locked;
+        el.style.opacity = locked ? .65 : "";
+        el.style.cursor = locked ? "not-allowed" : "";
+      });
+    }
+
+    function render(){
+      const defs = defaultTexts();
+
+      const proto = (CONFIG.protocol && CONFIG.protocol.trim()) ? CONFIG.protocol.trim() : buildProtocol();
+      pProto.textContent = proto;
+      pProtoChip.textContent = proto;
+      pFootProto.textContent = proto;
+
+      const dt = prettyDT();
+      pStampDT.textContent = `Carimbo: ${dt}`;
+      pFootDT.textContent = dt;
+
+      const baseTitle = `Contrato de ${kindLabel(CONFIG.kind)}`;
+      pDocTitle.textContent = (CONFIG.title && CONFIG.title.trim()) ? CONFIG.title.trim() : baseTitle;
+      pSubtitle.innerHTML = defs.subtitle;
+
+      pMA.textContent = CONFIG.me || "—";
+      pMB.textContent = CONFIG.you || "—";
+      pKind.textContent = kindLabel(CONFIG.kind);
+      pTone.textContent = toneLabel(CONFIG.tone);
+      pSigNameA.textContent = CONFIG.me || "Eu";
+
+      pIntro.innerHTML = (CONFIG.intro && CONFIG.intro.trim()) ? CONFIG.intro.trim() : defs.intro;
+      pHead.innerHTML  = (CONFIG.headline && CONFIG.headline.trim()) ? CONFIG.headline.trim() : defs.headline;
+
+      pClauseList.innerHTML = "";
+      const clauses = Array.isArray(CONFIG.clauses) ? CONFIG.clauses.filter(Boolean) : [];
+      if(!clauses.length){
+        pClauseHint.textContent = "Nenhuma cláusula. Edite CONFIG.clauses no código.";
+      }else{
+        pClauseHint.textContent = "";
+        clauses.forEach((c, idx)=>{
+          const div = document.createElement("div");
+          div.className = "clause";
+          div.innerHTML = `<div class="n">${idx+1}</div><div class="t">${c}</div>`;
+          pClauseList.appendChild(div);
+        });
+      }
+
+      if(state.videoUrl){
+        pVideo.src = state.videoUrl;
+        pVideoNote.textContent = `Anexo: ${state.videoName || "vídeo"}`;
+      }else{
+        pVideo.removeAttribute("src");
+        pVideo.load();
+        pVideoNote.textContent = "Sem vídeo anexado.";
+      }
+
+      if(state.signatureDataUrl){
+        pSigOk.textContent = "Assinatura salva ✅";
+        pSigOk.className = "mini ok";
+      }else{
+        pSigOk.textContent = "Não assinado";
+        pSigOk.className = "mini";
+      }
+
+      setStatus(state.finalized);
+      lockUI(state.finalized);
+    }
+
+    // assinatura (canvas)
+    let drawing = false;
+    let last = null;
+    const strokes = [];
+    let currentStroke = null;
+
+    function resizeCanvasForHiDPI(){
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.round(rect.width * dpr);
+      const h = Math.round(rect.height * dpr);
+      if(canvas.width !== w || canvas.height !== h){
+        canvas.width = w;
+        canvas.height = h;
+      }
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      redraw();
+    }
+
+    function posFromEvent(e){
+      const rect = canvas.getBoundingClientRect();
+      const p = (e.touches && e.touches[0]) ? e.touches[0] : e;
+      return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+    }
+
+    function drawLine(a,b){
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 2.6;
+      ctx.strokeStyle = "rgba(255,255,255,.92)";
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+
+    function redraw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "rgba(255,255,255,.02)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      strokes.forEach(st=>{
+        for(let i=1;i<st.length;i++) drawLine(st[i-1], st[i]);
+      });
+    }
+
+    function startDraw(e){
+      if(state.finalized) return;
+      drawing = true;
+      last = posFromEvent(e);
+      currentStroke = [last];
+      strokes.push(currentStroke);
+    }
+    function moveDraw(e){
+      if(!drawing || state.finalized) return;
+      const p = posFromEvent(e);
+      currentStroke.push(p);
+      drawLine(last, p);
+      last = p;
+      e.preventDefault?.();
+    }
+    function endDraw(){ drawing = false; last = null; currentStroke = null; }
+
+    canvas.addEventListener("mousedown", startDraw);
+    canvas.addEventListener("mousemove", moveDraw);
+    window.addEventListener("mouseup", endDraw);
+    canvas.addEventListener("touchstart", (e)=>{ startDraw(e); e.preventDefault(); }, { passive:false });
+    canvas.addEventListener("touchmove", (e)=>{ moveDraw(e); }, { passive:false });
+    canvas.addEventListener("touchend", endDraw);
+
+    btnClear.addEventListener("click", ()=>{
+      if(state.finalized) return;
+      strokes.length = 0;
+      redraw();
+      state.signatureDataUrl = "";
+      render();
+    });
+    btnUndo.addEventListener("click", ()=>{
+      if(state.finalized) return;
+      strokes.pop();
+      redraw();
+    });
+    btnSaveSig.addEventListener("click", ()=>{
+      if(state.finalized) return;
+      state.signatureDataUrl = canvas.toDataURL("image/png");
+      render();
+    });
+
+    btnFinalize.addEventListener("click", ()=>{
+      if(!state.signatureDataUrl){
+        alert("Assine e clique em “Salvar” antes de finalizar.");
+        return;
+      }
+      state.finalized = true;
+      render();
+      try{ pVideo.currentTime = 0; }catch{}
+    });
+    btnUnlock.addEventListener("click", ()=>{
+      state.finalized = false;
+      render();
+    });
+
+    // Modal vídeo
+    btnAttach.addEventListener("click", ()=>{
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden","false");
+    });
+    btnCloseModal.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeModal(); });
+    function closeModal(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+    }
+
+    videoFile.addEventListener("change", ()=>{
+      if(state.finalized) return;
+      const f = videoFile.files?.[0];
+      if(!f) return;
+      if(state.videoUrl && state.videoUrl.startsWith("blob:")){
+        try{ URL.revokeObjectURL(state.videoUrl); }catch{}
+      }
+      state.videoUrl = URL.createObjectURL(f);
+      state.videoName = f.name;
+      closeModal();
+      render();
+    });
+
+    btnPrint.addEventListener("click", ()=> window.print());
+
+    // init
+    window.addEventListener("resize", resizeCanvasForHiDPI);
+    setTimeout(resizeCanvasForHiDPI, 0);
+    render();
+  </script>
+</body>
+</html>
