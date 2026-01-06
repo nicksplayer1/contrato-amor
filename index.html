@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -410,7 +410,46 @@
   </div>
 
   <script>
+    
     // =====================================================
+    // ✅ MÍDIA FIXA (modo "bota o arquivo na pasta e aparece")
+    // Coloque os arquivos na MESMA pasta do index.html (no GitHub Pages/Vercel):
+    //   - video.mp4  (ou .webm / .mov)
+    //   - foto.jpg   (ou .png / .webp)   [opcional]
+    //   - audio.mp3  (ou .m4a / .wav)    [opcional]
+    //
+    // Se quiser forçar, preencha abaixo. Se deixar vazio, ele tenta achar por nomes comuns.
+    const FIXED_MEDIA = {
+      videoUrl: "",   // ex: "video.mp4"
+      photoUrl: "",   // ex: "foto.jpg"
+      audioUrl: ""    // ex: "audio.mp3"
+    };
+
+    const AUTO_MEDIA_CANDIDATES = {
+      video: ["video.mp4","video.webm","video.mov","surpresa.mp4","clip.mp4"],
+      photo: ["foto.jpg","foto.jpeg","foto.png","foto.webp","capa.jpg","capa.png","photo.jpg","photo.png"],
+      audio: ["audio.mp3","audio.m4a","audio.wav","audio.ogg","voz.mp3","voz.m4a","musica.mp3","musica.m4a"]
+    };
+
+    async function existsOnServer(url){
+      try{
+        const r = await fetch(url, { method: "HEAD", cache: "no-store" });
+        if(r.ok) return true;
+      }catch(e){}
+      try{
+        const r2 = await fetch(url, { method: "GET", headers: { "Range": "bytes=0-0" }, cache: "no-store" });
+        if(r2.ok || r2.status === 206) { try{ r2.body?.cancel(); }catch(e){} return true; }
+      }catch(e){}
+      return false;
+    }
+    async function pickFirstExisting(list){
+      for(const u of list){
+        if(await existsOnServer(u)) return u;
+      }
+      return "";
+    }
+
+// =====================================================
     // ✅ SCRIPT SIMPLES:
     // - Não gera frases automáticas
     // - Só cuida de: protocolo/data, assinatura, vídeo local
@@ -481,6 +520,27 @@
 
     let currentVideoUrl = "";
 
+
+    // --- modo FIXO (video.mp4 do lado do index) ---
+    async function tryLoadFixedMedia(){
+      const proto = (location && location.protocol) ? location.protocol : "";
+      const canFetch = proto === "http:" || proto === "https:";
+
+      // FILE:// não permite checar automaticamente; nesse caso use o botão "Anexar vídeo".
+      if(!canFetch) return;
+
+      // Se quiser forçar, coloque FIXED_MEDIA.videoUrl = "video.mp4"
+      let vurl = (FIXED_MEDIA.videoUrl || "").trim();
+      if(!vurl) vurl = await pickFirstExisting(AUTO_MEDIA_CANDIDATES.video);
+
+      if(vurl){
+        // só seta se ainda não tem vídeo
+        if(!video.getAttribute("src") && !video.src){
+          video.src = vurl;
+          videoNote.textContent = `Anexo: ${vurl}`;
+        }
+      }
+    }
     btnAttach.addEventListener("click", ()=>{
       overlay.classList.add("show");
       overlay.setAttribute("aria-hidden", "false");
@@ -663,6 +723,10 @@
     window.addEventListener("resize", resizeCanvasForHiDPI);
     setTimeout(resizeCanvasForHiDPI, 0);
     setFinalized(false);
+
+    // tenta carregar video.mp4 automaticamente (se estiver online)
+    tryLoadFixedMedia();
   </script>
 </body>
 </html>
+
